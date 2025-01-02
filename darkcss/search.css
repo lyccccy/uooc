@@ -1,0 +1,79 @@
+.search-main{
+    width: 95%;
+    background-color: #222;
+    margin-top: 50px;
+    padding: 20px;
+    margin-left: 2.5%;
+}
+
+.search-main .rank{
+    width: 90%;
+    padding: 10px;
+    background-color: #666;
+    color: #ddd;
+    margin: auto;
+    border-radius: 20px;
+}
+
+.search-main .rank h2{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-main .rank ul{
+    display: flex;
+    margin: 20px;
+}
+.search-main .rank ul li{
+    list-style: none;
+    margin-right: 20px;
+}
+
+.search-main .search-result{
+    width: 90%;
+    margin: 2% 5%;
+    overflow: auto;
+}
+.search-main .search-result ul{
+    width: 100%;
+    border-top: 1px solid #ccc;
+}
+
+
+.search-main .search-result  li{
+    list-style: none;
+    width: 100%;
+    height: 200px;
+    padding: 25px;
+    border-bottom: #ccc 1px solid;
+    display: block;
+}
+
+.search-main .search-result  li img{
+    width: 200px;
+    height: 150px;
+    float: left;
+    margin-right: 20px;
+    border: #bbb 1px solid;
+    border-radius: 20px;
+}
+
+.search-main .search-result  .search-info  h4{
+    color: #ccc;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.search-main .search-result  .search-info  p{
+    width: 80%; /* 确保段落占满剩余空间 */
+    font-size: 14px;
+    color: #ccc;
+    line-height: 30px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    margin-bottom: 15px;
+}

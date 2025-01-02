@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #444;
+    margin: 0;
+    padding: 20px;
+}
+
+
+
+.course-details {
+    max-width: 1200px;
+    margin: auto;
+    background: #444;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.responsive-video {
+    height: 450px;
+    width: 800px;
+    object-fit: contain;
+}
+
+.responsive-video video {
+    height: 450px;
+    width: 800px;
+    margin-left: 180px;
+}
+
+#discussion {
+    margin: 20px 0;
+}
+
+#comment {
+    width: 95%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+#submitComment {
+    margin-left: 85%;
+
+    background-color: #444;
+    color: #ccc;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100px;
+    height: 45px;
+    transition: 0.3s;
+}
+
+#submitComment:hover {
+    background-color: #444;
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+}
+
+#comments-list {
+    margin-top: 15px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+}
+
+#comments-list p {
+    background-color: #888;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+h2 {
+    border-bottom: 2px solid #007bff;
+    color: #ccc;
+}
+
+p {
+    color: #ccc;
+}
+
+.materials {
+    margin: 20px 0;
+}
+
+.document-list,
+.media-list {
+    list-style: none;
+    padding: 0;
+}
+
+.document-list li,
+.media-list li {
+    margin: 10px 0;
+}
+
+.document-list a,
+.media-list video,
+.media-list audio {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.document-list a:hover {
+    text-decoration: underline;
+}
+
+#discussion,
+#personal-notes {
+    background-color: #888;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+#discussion p,
+#personal-notes p {
+    color: #ccc;
+}

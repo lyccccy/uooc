@@ -1,0 +1,518 @@
+.layout-header-menu{
+  z-index: 1000;
+    display: none;
+    position: absolute;
+    text-align: center;
+    top: 8.3%; /* 距离导航栏下方偏移50px */
+   
+    width: 200px;
+    padding: 15px;
+    background-color: #444;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ccc;
+    font-size: 14px;
+}
+.user:hover .layout-header-menu{
+    display: block;
+}
+
+.layout-header-menu:hover{
+  display: block;
+}
+.layout-header-menu .li{
+  float: left;
+}
+.personal-card li{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.middiler {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  
+  .layout-wrapper {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .slideBox {
+    flex: 9; /* 占9/10的宽度 */
+    margin-right: 20px;
+    position: relative;
+  }
+  
+  .slideBox .swiper-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+  
+  .AD-swiper-container{
+    width: 100%;
+    height: 100%;
+    background-color: #444;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+.swiper-wrapper {
+  display: flex;
+  width: 100%; /* 使三个轮播项并排 */
+  animation: slide 9s infinite;
+}
+
+/* 关键帧动画 */
+@keyframes slide {
+0%, 100% { transform: translateX(0); }      /* 起点和终点都在初始位置 */
+33% { transform: translateX(-100%); }       /* 滑动至第2项 */
+66% { transform: translateX(-200%); }       /* 滑动至第3项 */
+}
+ 
+  
+
+  .slideBox .swiper-slide {
+    min-width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+  .prevnextBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+  }
+  
+  .banner-prev {
+    left: 10px;
+  }
+  
+  .banner-next {
+    right: 10px;
+  }
+  
+  .swiper-pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .subjectNav {
+    flex: 1; /* 占2/5的宽度 */
+
+    background-color: #444;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .subjectNav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .subjectNav li {
+    margin-bottom: 10px;
+  }
+  
+  .subjectNav a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ccc;
+    font-size: 14px;
+  }
+  
+  .subjectNav a i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #ccc;
+  }
+  
+  #subjectNav-more a {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #ccc;
+    cursor: pointer;
+  }
+
+  .shortcuter {
+    display: none;
+    position:absolute;
+    top: 20%;
+    width: 30%;
+    height: 10%;
+    right: 10%;
+  }
+  
+  .shortcut-haslogin {
+    background-color: #444;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .shortcut-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #ccc;
+  }
+  
+  .shortcut-img img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .shortcut-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .shortcut-course ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .shortcut-course li {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .shortcut-course li a {
+    text-decoration: none;
+    color: #ccc;
+  }
+  
+  .Btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #444;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .Btn-blueGra {
+    background: linear-gradient(45deg, #bbb, #ccc);
+  }
+  
+  .Btn-full {
+    width: 100%;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .layout-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .slideBox {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  
+    .subjectNav {
+      width: 100%;
+    }
+  }
+.recommendCourse{
+  display: block;
+  width: 80%;
+}
+.recommendCourse .titlewrapper{
+  display: flex;
+  margin: 30px 0px;
+  height: 90px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  background: no-repeat center;  
+  background-image: url('/Users/yuechengl/Downloads/study/web/大作业/image/title_0.png');
+  flex-wrap: wrap;
+}
+ .titlewrapper h1{
+  width: 100%;
+}
+ .titlewrapper p{
+  text-align: center;
+  width: 100%;
+}
+
+.recommendCourse .title{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.recommendCourse>p{
+  position:absolute;
+  right: 20%;;
+}
+
+
+
+#swiper-course{
+  display: flex;
+  width: 100%;
+  justify-self: center;
+  overflow: hidden;
+
+}
+.swiper-wrapper2 {
+display: flex;
+width: 100%; /* 使三个轮播项并排 */
+animation: scroll 30s linear infinite;
+}
+
+
+/* 关键帧动画 */
+@keyframes scroll {
+0% { transform: translateX(0); }      /* 起点和终点都在初始位置 */
+100% { transform: translateX(-300%); }       /* 滑动至第2项 */
+
+}
+
+.subsliderwrap{
+  display: flex;
+}
+
+.swiper-slide2 {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  border-radius: 5px;
+  background-color: #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s ease;}
+
+.swiper-slide2:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+.swiper-slide2 p{
+  position: relative;
+}
+.swiper-slide2 img{
+  border-radius: 5px;
+}
+
+
+.hotCourse{
+  display: block;
+  width: 80%;
+}
+.hotCourse .titlewrapper{
+  display: flex
+;
+margin: 30px 0px;
+height: 90px;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+  width: 90%;
+background: no-repeat center;  
+background-image: url('/Users/yuechengl/Downloads/study/web/大作业/image/title_0.png');
+flex-wrap: wrap;
+
+}
+
+.hotCourse .title{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hotCourse>p{
+  position:absolute;
+  right: 20%;
+}
+
+.hotCoursewrapper {
+  max-width: 80%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ddd;
+  background-color: #444;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.hotCoursewrapper h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #ccc;
+}
+
+.hotCoursewrapper ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hotCoursewrapper li{
+  border-bottom: 1px solid #ddd;;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.hotCoursewrapper li:last-child {
+  border-bottom: none;
+}
+
+
+
+.hotCoursewrapper .rank {
+  font-weight: bold;
+  color: #ccc;
+  margin: auto;
+}
+
+.rankItem{
+  width: 100%;
+}
+
+.hotCoursewrapper .score {
+  font-weight: bold;
+  color: #ccc;
+}
+
+.rankswrap{
+  display: flex;
+}
+
+.rankItem-img{
+  margin-left: 20px;
+}
+
+.rankimg{
+  width: 100px;
+  height: auto;
+}
+.infowrapper{
+  margin: auto;
+  margin-right: 10px;
+  text-align: right;
+}
+.hotItem .ranktitle{
+  font-size: 13px;
+  white-space: nowrap;
+}
+.newtitle{
+  text-align: center;
+  justify-self: center;
+  justify-content: center;
+}
+.newestCourse{
+  display: block;
+  width: 100%;
+  justify-self: center;
+}
+.newestCourseWrapper{
+  display: flex;
+  width: 80%;
+  justify-self: center;
+  justify-content: center;
+}
+.newCourseItem{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  border-radius: 5px;
+  background-color: #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s ease;
+  width: 30%;
+}
+.courseItem-img{
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+}
+.courseItem-info-main{
+  padding: 10px 15px;
+}
+
+.newCourseItem .lazy-img{
+  margin: auto;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.newCourseItem .courseItem-info-main{
+  padding: 10px;
+}
+
+.footer {
+  background-color: #333; /* 页脚背景颜色 */
+  color: #fff; /* 页脚文字颜色 */
+  text-align: center; /* 文字居中 */
+  padding: 20px 0; /* 页脚内边距 */
+  margin-top: 20px; /* 与主内容的间距 */
+}
+
+.footer .wrapper {
+  max-width: 1200px; /* 最大宽度，与页面主体一致 */
+  text-align: center;
+  padding: 0 15px; /* 内边距，与页面主体一致 */
+  flex-wrap: wrap;
+}
+
+.footer p {
+  margin: 10px 0; /* 段落之间的间距 */
+  font-size: 14px; /* 字体大小 */
+  text-align: center;
+  width: 100%;
+}
+
+.footer a {
+  color: #ccc; /* 链接颜色 */
+  text-decoration: none; /* 去除下划线 */
+  margin: 0 5px; /* 链接之间的间距 */
+}
+
+.footer a:hover {
+  text-decoration: underline; /* 鼠标悬停时的链接样式 */
+}
+
+
+.learning .tab-content #addForm #allcourse ul li{
+  height: 40px;
+  background-color: #444;
+}
