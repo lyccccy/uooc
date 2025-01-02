@@ -1,0 +1,229 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.course-details {
+  max-width: 1200px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.responsive-video {
+  height: 450px;
+  width: 800px;
+  object-fit: contain;
+}
+
+.responsive-video video {
+  height: 450px;
+  width: 800px;
+  margin-left: 180px;
+}
+
+#discussion {
+  margin: 20px 0;
+}
+
+#comment {
+  width: 95%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+#note {
+  width: 95%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+#submitComment {
+  margin-left: 85%;
+
+  background-color: #f3f7fe;
+  color: #3b82f6;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100px;
+  height: 45px;
+  transition: 0.3s;
+}
+
+#submitComment:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+}
+
+#comments-list {
+  margin-top: 15px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+#comments-list p {
+  background: #f9f9f9;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+h2 {
+  border-bottom: 2px solid #007bff;
+  color: #007bff;
+}
+
+p {
+  color: #555;
+}
+
+.materials {
+  margin: 20px 0;
+}
+
+.document-list,
+.media-list {
+  list-style: none;
+  padding: 0;
+}
+
+.document-list li,
+.media-list li {
+  margin: 10px 0;
+}
+
+.document-list a,
+.media-list video,
+.media-list audio {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.document-list a:hover {
+  text-decoration: underline;
+}
+
+#discussion,
+#personal-notes {
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+#discussion p,
+#personal-notes p {
+  color: #777;
+}
+
+/* From Uiverse.io by Priyanshu02020 */ 
+#heart {
+  display: flex;
+}
+
+.like-button {
+  position: fixed;
+  top: 20px; /* 根据需要调整距离底部的距离 */
+  right: 20px; /* 根据需要调整距离左侧的距离 */
+  z-index: 1000; /* 确保按钮在其他内容之上 */
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  width: 150px;
+  border-radius: 16px;
+  border: none;
+  background-color: #00a4ff;
+  overflow: hidden;
+  box-shadow:
+    inset -2px -2px 5px rgba(73, 60, 251, 0.346),
+    inset 2px 2px 5px rgba(73, 60, 251, 0.346),
+    4px 4px 10px rgb(73, 60, 251, 0.137),
+    -2px -2px 8px rgba(73, 60, 251, 0.137);
+}
+
+.like-button input[type="checkbox"] {
+  display: none; 
+  height: 0px;
+  width: 0px;
+}
+
+
+
+.like {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.like-icon {
+  fill: #FFF;
+  height: 28px;
+  width: 28px;
+}
+
+.like-text {
+  color: #FFF;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.like-count {
+  position: absolute;
+  right: 0;
+  width: 30%;
+  margin-top:2px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+  font-size: 16px;
+  transition: all 0.5s ease-out;
+}
+
+.like-count.two {
+  transform: translateY(40px);
+}
+
+.on:checked ~ .like .like-icon {
+  fill: #fc4e4e;
+  animation: enlarge 0.2s ease-out 1;
+  transition: all 0.2s ease-out;
+}
+
+.on:checked ~ .like-count.two {
+  transform: translateX(0);
+  color: #fc4e4e;
+}
+.on:checked ~ .like-count.one {
+  transform: translateY(-40px);
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
