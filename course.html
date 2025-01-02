@@ -1,0 +1,228 @@
+<head> </head>
+<script type="text/javascript" src="./JS/head.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async function () {
+    const queryString = window.location.search;
+
+    // 创建 URLSearchParams 对象
+    const urlParams = new URLSearchParams(queryString);
+
+    // 获取 id 参数的值
+    const courseId = urlParams.get("id"); // 返回 '19'
+
+    // 输出 courseId
+    console.log(courseId);
+
+    try {
+      const response = await fetch(`${apiUrl}/course`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ CourseID: courseId }),
+      });
+      if (response.ok) {
+        const html = await response.text();
+        document.documentElement.innerHTML = html;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    const response2 = await fetch("http://localhost:3000/getDocument", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ID: courseId }),
+    });
+    if (!response2.ok) {
+      console.log(response2.status);
+    }
+    DocInfo = await response2.json();
+    var DocNames = "";
+    for (var i in DocInfo) {
+      var Info = DocInfo[i];
+      DocNames += `<li><a style="color:black" href="${Info.documentPath}">${Info.documentName}</a></li>`;
+    }
+    document.getElementById("document-list").innerHTML = DocNames;
+    var IsVisitor = true;
+    if (localStorage.getItem("token")) {
+      IsVisitor = false;
+    }
+    console.log(IsVisitor);
+    if (IsVisitor) {
+      document.getElementById("discussion").innerHTML = `<p>"游客不可评论"</p>
+                <textarea id="comment" rows="4" placeholder="请输入评论..."></textarea>
+                <button id="submitComment">提交评论</button>
+                <div id="comments-list"></div>`;
+    } else {
+      document.getElementById("discussion").innerHTML = `
+                <textarea id="comment" rows="4" placeholder="enter comment..."></textarea>
+                <button id="submitComment">提交评论</button>
+                <div id="comments-list"></div>`;
+      document.getElementById(
+        "personal-notes"
+      ).innerHTML = `<textarea id="note" rows="4" placeholder="请输入笔记"></textarea>`;
+    }
+    try {
+      const response = await fetch(`${apiUrl}/getComment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ID: urlParams.get("id") }),
+      });
+      if (response.ok) {
+        DraftItems = await response.json();
+        console.log(DraftItems[0]);
+        for (var i in DraftItems) {
+          var DraftItem = DraftItems[i];
+          const commentItem = document.createElement("p");
+          commentItem.textContent = DraftItem.Content; // 设置评论文本
+          console.log(commentItem);
+          document.getElementById("comments-list").appendChild(commentItem);
+          // 将评论添加到评论列表中
+        }
+      }
+
+      var UserID;
+      try {
+        const response = await fetch(`${apiUrl}/profile`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (response.ok) {
+          UserID = await response.json();
+          console.log(UserID.UserID);
+        }
+      } catch (error) {}
+
+      //拉取笔记
+      try{const response2 = await fetch(`${apiUrl}/getNote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ CourseID: urlParams.get("id"), UserID: UserID.UserID }),
+      });
+      if (response2.ok) {
+        DraftItems = await response2.text();
+        console.log(DraftItems);
+        document.getElementById('note').value=DraftItems
+      }}
+      
+      catch(err){}
+      const response3 = await fetch(`${apiUrl}/getlike`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ CourseID: urlParams.get("id") }),
+      });
+      if (response2.ok) {
+        DraftItems = await response3.json();
+        document.getElementsByClassName('like-count one')[0].textContent=parseInt(DraftItems.LikeCount)
+        document.getElementsByClassName('like-count two')[0].textContent=parseInt(DraftItems.LikeCount+1)
+
+      }
+    } catch (err) {}
+
+
+    document
+      .getElementById("submitComment")
+      .addEventListener("click", async function () {
+        const commentInput = document.getElementById("comment");
+        const commentText = commentInput.value.trim();
+        console.log("submit");
+        if (commentText) {
+          var UserID;
+          try {
+            const response = await fetch(`${apiUrl}/profile`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            if (response.ok) {
+              UserID = await response.json();
+              console.log(UserID.UserID);
+            }
+          } catch (error) {}
+          try {
+            const response1 = await fetch(`${apiUrl}/comment`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                CourseID: courseId,
+                UserID: UserID.UserID,
+                Comment: commentText,
+              }),
+            });
+            if (response1.ok) {
+              console.log("fabu");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
+          // 创建一个新的评论元素
+          const commentItem = document.createElement("p");
+          commentItem.textContent = commentText; // 设置评论文本
+
+          // 将评论添加到评论列表中
+          document.getElementById("comments-list").appendChild(commentItem);
+
+          // 清空输入框
+          commentInput.value = "";
+        } else {
+          alert("评论内容不能为空！");
+        }
+      });
+      document.getElementById("note").addEventListener("change",async function(e) {
+        console.log(e.target.value)
+        try {
+            const response1 = await fetch(`${apiUrl}/updateNote`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                CourseID: urlParams.get("id"),
+                UserID: localStorage.getItem("ID"),
+                Content: e.target.value,
+              }),
+            });
+            if (response1.ok) {
+              console.log("更新笔记成功");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+      })
+     document.getElementsByClassName('like')[0].addEventListener("click",async function(e) {
+        try {
+            const response1 = await fetch(`${apiUrl}/like`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                CourseID: urlParams.get("id"),
+              }),
+            });
+            if (response1.ok) {
+              console.log("点赞成功");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        
+      }) 
+  });
+  
+</script>

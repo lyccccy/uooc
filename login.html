@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录和注册</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* 设置字体和响应式布局 */
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #fefefe;
+            overflow: hidden;
+        }
+
+
+        .canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        pointer-events: none;
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            /* 默认不显示 */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* 模态框内容样式 */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            border-radius: 10px;
+        }
+
+        /* 关闭按钮样式 */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 输入框和按钮样式 */
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 40px);
+            /* 留出图标位置 */
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-icon {
+            position: absolute;
+            right: 10px;
+            top: 12px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #00a4ff;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .success-message {
+            color: green;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" class="canvas"> </canvas>
+
+        <!-- 触发/打开模态框的按钮 -->
+        <div style="display: block; justify-content: center ;z-index: 1000; ">
+            <h1>登录/注册</h1>
+            <button id="loginBtn">登录</button>
+            <button type="button" id="registerBtn">注册</button>
+        </div>
+
+
+        <!-- 登录模态框 -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="loginForm">
+                    <input type="text" id="loginUsername" placeholder="用户名" name="uname" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" placeholder="密码" name="psw" required>
+                        <i class="fas fa-eye-slash password-icon" onclick="togglePasswordVisibility('loginPassword', this)"></i>
+                    </div>
+                    <label>
+                        <input type="checkbox" id="agreePrivacy" name="privacy"> 同意《隐私政策》
+                    </label>
+                    <button type="submit">登录</button>
+                    <a href="#">忘记密码？</a>
+                    <div class="success-message" id="loginSuccess"></div>
+                    <div class="error-message" id="loginError"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 注册模态框 -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="registerForm">
+                    <input type="text" id="registerUsername" placeholder="学号或校内邮箱" name="uname" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="registerPassword" placeholder="密码" name="psw" required>
+                        <i class="fas fa-eye-slash password-icon"
+                            onclick="togglePasswordVisibility('registerPassword', this)"></i>
+                    </div>
+                    <div class="password-wrapper">
+                        <input type="password" id="registerConfirmPassword" placeholder="确认密码" name="cpsw" required>
+                        <i class="fas fa-eye-slash password-icon"
+                            onclick="togglePasswordVisibility('registerConfirmPassword', this)"></i>
+                    </div>
+                    <div>
+                        <select name="identity" id="identity" onchange="showIdentity()">
+                            <option value="student">学生</option>
+                            <option value="teacher">老师</option>
+                            <option value="admin">管理员</option>
+                        </select>
+                    </div>
+                    <button type="submit">注册</button>
+                    <a href="#">发送验证码</a>
+                    <div class="success-message" id="registerSuccess"></div>
+                    <div class="error-message" id="registerError"></div>
+                </form>
+            </div>
+        </div>
+   
+    <script src="./JS/login.js"></script>
+    <script>
+        const apiUrl = "http://localhost:3000";
+        // 获取模态框
+        var loginModal = document.getElementById("loginModal");
+        var registerModal = document.getElementById("registerModal");
+
+        // 获取打开模态框的按钮
+        var loginBtn = document.getElementById("loginBtn");
+        var registerBtn = document.getElementById("registerBtn");
+
+        // 获取关闭模态框的<span>元素
+        var spans = document.getElementsByClassName("close");
+
+        // 当用户点击按钮时，打开模态框
+        loginBtn.onclick = function () {
+            loginModal.style.display = "block";
+        }
+        registerBtn.onclick = function () {
+            registerModal.style.display = "block";
+        }
+
+        // 当用户点击<span>（x）时，关闭模态框
+        for (let span of spans) {
+            span.onclick = function () {
+                loginModal.style.display = "none";
+                registerModal.style.display = "none";
+            }
+        }
+
+        // 当用户点击模态框外部时，关闭模态框
+        window.onclick = function (event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+            if (event.target == registerModal) {
+                registerModal.style.display = "none";
+            }
+        }
+
+        // 表单提交和IndexedDB交互
+        document.getElementById('loginForm').addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            var username = document.getElementById('loginUsername').value;
+            var password = document.getElementById('loginPassword').value;
+            var agreePrivacy = document.getElementById('agreePrivacy').checked;
+
+            if (!username || !password) {
+                alert("请填写用户名和密码。");
+                return;
+            }
+
+            if (!agreePrivacy) {
+                alert("请勾选同意《隐私政策》复选框。");
+                return;
+            }
+            try {
+                const response = await fetch(`${apiUrl}/login`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById("loginSuccess").textContent = "登录成功！";
+                    document.getElementById("loginError").textContent = "";
+                    localStorage.setItem("token", data.token);
+                    //fetchUserProfile();
+                    setTimeout(() => window.location.href = './homepage.html', 2000);
+                } else {
+                    const errorData = data.error;
+                    document.getElementById("loginError").textContent = errorData;
+                    document.getElementById("loginSuccess").textContent = "";
+                    localStorage.removeItem("token");
+                }
+            } catch (error) {
+                console.log(error)
+                document.getElementById("loginError").textContent = "网络错误，请稍后再试。";
+                document.getElementById("loginSuccess").textContent = "";
+            }
+            // 登录逻辑，使用IndexedDB
+
+        });
+
+        document.getElementById('registerForm').addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            // 获取输入的数据
+            var username = document.getElementById('registerUsername').value;
+            var password = document.getElementById('registerPassword').value;
+            var identity = document.getElementById('identity').value;
+
+            var confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+            // 用户名校验：10位数字或有效的邮箱格式
+            var usernamePattern = /^(?:\d{10}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+
+            if (!usernamePattern.test(username)) {
+                alert("用户名必须为正确学号或有效的邮箱地址。");
+                return;
+            }
+
+            // 密码正则表达式: 8-16位，必须包含字母和数字
+            var passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,16}$/;
+
+            if (!passwordPattern.test(password)) {
+                alert("密码必须为8到16位字母和数字的组合。");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("两次输入的密码不一致，请检查。");
+                return;
+            }
+
+            // 注册逻辑
+            try {
+                const response = await fetch(`${apiUrl}/register`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username, password, identity }),
+                    
+                });
+
+                if (response.ok) {
+                    document.getElementById("registerSuccess").textContent = "注册成功！";
+                    document.getElementById("registerError").textContent = "";
+                } else {
+                    const errorData = await response.text();
+                    document.getElementById("registerError").textContent = errorData;
+                    document.getElementById("registerSuccess").textContent = "";
+                }
+            } catch (error) {
+                document.getElementById("registerError").textContent = "网络错误，请稍后再试。";
+                document.getElementById("registerSuccess").textContent = "";
+            }
+        });
+
+        // 切换密码可见性
+        function togglePasswordVisibility(passwordFieldId, icon) {
+            var passwordInput = document.getElementById(passwordFieldId);
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

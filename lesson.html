@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程详情</title>
+    <link id="themeStylesheet" rel="stylesheet" href="./CSS/lesson.css">
+</head>
+<body>
+    <div class="course-details">
+        <h1>软件工程 🎓</h1>
+        <p class="course-code">课程代码：CS101</p>
+        <p class="teacher">授课教师：张三</p>
+
+        <!-- 课件 -->
+        <h2>课件 📚</h2>
+        <div class="materials">
+            <h3>文档 📄</h3>
+            <ul class="document-list">
+                <li><a href="#">课程讲义.pdf</a></li>
+                <li><a href="#">实验指导书.pdf</a></li>
+            </ul>
+
+            <h3>音视频 🎥</h3>
+            <ul class="media-list">
+                <li class="responsive-video">
+                    <video controls>
+                        <source src="video.mp4" type="video/mp4">视频内容
+                    </video>
+                </li>
+                <li>
+                    <audio controls>
+                        <source src="audio.mp3" type="audio/mpeg">音频内容
+                    </audio>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 课程简介 -->
+        <h2>课程简介 📖</h2>
+        <p>本课程是由深圳大学与腾讯公司共同建设的一门在线课程。
+            <br>
+            软件工程是计算机学科中一个新兴的并且充满活力的研究领域。软件工程的重要性在于它对贯穿系统生存期的软件开发，实现以及维护的系统化研究。
+            《软件工程》从实用的角度讲述软件工程的基本原理、概念和技术，强调软件开发过程的方法研究。通过本课程的学习，使学生掌握软件分析、设计、
+            实现和测试的基本技术以及面向对象分析和设计的基本方法。通过课程实践，实际运用软件工程的技术和方法，掌握软件项目管理和团队开发的工作方法。</p>
+
+        <!-- 讨论区 -->
+        <h2>讨论区 💬</h2>
+        <div id="discussion">
+            <p>游客不可评论</p>
+            <textarea id="comment" rows="4" placeholder="请输入评论..."></textarea>
+            <button id="submitComment">提交评论</button>
+            <div id="comments-list"></div>
+        </div>
+
+        <!-- 个人笔记 -->
+        <h2>个人笔记 📝</h2>
+        <div id="personal-notes">
+            <p>游客不可见</p>
+            <!-- 这里可以添加登录后的用户笔记功能 -->
+        </div>
+    </div>
+    <script src="./JS/script.js"></script>
+    <button class="fixed-button" id="changebutton">固定按钮</button>
+</body>
+</html>
+<script>
+    let isDarkTheme = false;
+document.getElementById('changebutton').addEventListener('click', function() {
+console.log('切换主题按钮被点击');
+var link = document.getElementById('themeStylesheet');
+var currentHref = link.href;
+var baseName = currentHref.substring(currentHref.lastIndexOf('/') + 1);
+var newHref = isDarkTheme ? `./CSS/${baseName}` : `./darkcss/${baseName}`;
+link.href = newHref;
+isDarkTheme = !isDarkTheme;
+});
+</script>
